@@ -39,6 +39,11 @@ class MyWindow(Window):
         fd_gui='(HK AUFS mit Min Dose = '+str(fraction_dose/100)+'Gy, weight=300)'
         self.PrescrDose.Text=fd_gui
         self.PrescrDosePanel.Visibility=Visibility.Visible
+        
+        ### OUTPUT USER KONTROLLE IN GUI FUER VERSCHREIBUNG ###
+        fd_gui='(HK REDUK mit Max Dose = '+str(fraction_dose/100)+'Gy, weight=300)'
+        self.PrescrDose.Text=fd_gui
+        self.PrescrDosePanel.Visibility=Visibility.Visible
 
     def ComputeClicked(self, sender, event):
         roi_name = self.SelectROI.SelectedItem
@@ -57,9 +62,11 @@ class MyWindow(Window):
             sys.exit()
 
         hkaufsname="HK AUFS " + roi_name
+        hkredukname="HK REDUK " + roi_name
 
         if lungyes=="ja":
             hkaufsnametmp="TMP HK AUFS " + roi_name
+            hkreduknametmp="TMP HK REDUK " + roi_name
 
             with CompositeAction('ROI Algebra (' + hkaufsnametmp + ')'):
                 retval_0 = case.PatientModel.CreateRoi(Name=hkaufsnametmp, Color="Cyan", Type="Control", TissueName=None, RbeCellTypeName=None, RoiMaterial=None)
